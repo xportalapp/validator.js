@@ -66,6 +66,9 @@ describe('Validators', () => {
         '"wrong()[]",:;<>@@gmail.com',
         'username@domain.com�',
         'username@domain.com©',
+        'nbsp test@test.com',
+        'nbsp_test@te st.com',
+        'nbsp_test@test.co m',
       ],
     });
   });
@@ -117,6 +120,7 @@ describe('Validators', () => {
         'hans.m端ller@test.com',
         'z@co.c',
         'tüst@invalid.com',
+        'nbsp test@test.com',
       ],
     });
   });
@@ -1604,6 +1608,27 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate kazakh alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['kk-KZ'],
+      valid: [
+        'Сәлем',
+        'қанағаттандырылмағандықтарыңыздан',
+        'Кешіріңіз',
+        'Өкінішке',
+        'Қайталаңызшы',
+        'ағылшынша',
+        'түсінбедім',
+      ],
+      invalid: [
+        'Кешіріңіз1',
+        '  Кет бар  ',
+        'مرحبا العا',
+      ],
+    });
+  });
+
   it('should validate Vietnamese alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2429,6 +2454,27 @@ describe('Validators', () => {
         ' あいう123 ',
         'abcあいう',
         '生きろ!!',
+      ],
+    });
+  });
+
+  it('should validate kazakh alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['kk-KZ'],
+      valid: [
+        'Сәлем777',
+        '123Бәсе',
+        'солай',
+        'Жиенсу',
+        '90тоқсан',
+        'жалғыз',
+        '570бердім',
+      ],
+      invalid: [
+        ' кешіріңіз ',
+        'abcағылшынша',
+        'мүмкін!!',
       ],
     });
   });
@@ -4674,10 +4720,11 @@ describe('Validators', () => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb3JlbSI6Imlwc3VtIn0.ymiJSsMJXR6tMSr8G9usjQ15_8hKPDv_CArLhxw28MI',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2xvciI6InNpdCIsImFtZXQiOlsibG9yZW0iLCJpcHN1bSJdfQ.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqb2huIjp7ImFnZSI6MjUsImhlaWdodCI6MTg1fSwiamFrZSI6eyJhZ2UiOjMwLCJoZWlnaHQiOjI3MH19.YRLPARDmhGMC3BBk_OhtwwK21PIkVCqQe8ncIRPKo-E',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ', // No signature
       ],
       invalid: [
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTYxNjY1Mzg3Mn0.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tIiwiaWF0IjoxNjE2NjUzODcyLCJleHAiOjE2MTY2NTM4ODJ9.a1jLRQkO5TV5y5ERcaPAiM9Xm2gBdRjKrrCpHkGr_8M',
         '$Zs.ewu.su84',
         'ks64$S/9.dy$§kz.3sd73b',
       ],
@@ -5199,6 +5246,7 @@ describe('Validators', () => {
         'LB92000700000000123123456123',
         'IR200170000000339545727003',
         'MZ97123412341234123412341',
+        'MA64011519000001205000534921',
       ],
       invalid: [
         'XX22YYY1234567890123',
